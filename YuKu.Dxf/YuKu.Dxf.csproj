@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <Company>YuKu</Company>
+    <PackageLicenseUrl>https://github.com/yurko7/dxf/raw/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/yurko7/dxf/raw/master/YuKu.Dxf/Icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/yurko7/dxf</PackageProjectUrl>
+    <RepositoryUrl>git@github.com:yurko7/dxf.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>DXF</PackageTags>
+    <Description />
+    <Authors>Yuriy Kushnir</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>
