@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netstandard1.4</TargetFramework>
     <Company>YuKu</Company>
     <PackageLicenseUrl>https://github.com/yurko7/dxf/raw/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/yurko7/dxf/raw/master/YuKu.Dxf/Icon.png</PackageIconUrl>
