@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace YuKu.Dxf
 {
@@ -21,12 +22,40 @@ namespace YuKu.Dxf
         public IEnumerator<DxfGroup> GetEnumerator()
         {
             var fileStream = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            return new AsciiDxfEnumerator(fileStream);
+            return IsBinaryDxf(fileStream)
+                ? (IEnumerator<DxfGroup>) new BinaryDxfEnumerator(fileStream)
+                : new AsciiDxfEnumerator(fileStream);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private static Boolean IsBinaryDxf(Stream inputStream)
+        {
+            Boolean isBinary = true;
+            Int64 position = inputStream.Position;
+            try
+            {
+                foreach (Byte sentinelByte in BinaryDxfSentinel)
+                {
+                    Int32 dataByte = inputStream.ReadByte();
+                    if (dataByte == -1 || (Byte) dataByte != sentinelByte)
+                    {
+                        isBinary = false;
+                        break;
+                    }
+                }
+            }
+            finally
+            {
+                if (!isBinary)
+                {
+                    inputStream.Position = position;
+                }
+            }
+            return isBinary;
         }
 
         private static Type GetValueType(Int16 groupCode)
@@ -102,5 +131,8 @@ namespace YuKu.Dxf
 
             throw new InvalidDataException($"Unknown group code: {groupCode}");
         }
+
+        // AutoCAD Binary DXF<CR><LF><SUB><NULL>
+        private static readonly Byte[] BinaryDxfSentinel = Encoding.ASCII.GetBytes("AutoCAD Binary DXF\r\n\u001A\0");
     }
 }
